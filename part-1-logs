@@ -1,0 +1,12 @@
+docker logs csvserver
+coomand :  docker run -d  infracloudio/csvserver
+  
+6ee1acf9255633e2544ddd0db8db8a086eb0c624f00f2643723c2e0
+
+--> docker ps -a
+
+CONTAINER ID   IMAGE                           COMMAND                  CREATED          STATUS                     PORTS     NAMES
+6ee1acf92556   infracloudio/csvserver          "/csvserver/csvserver"   11 seconds ago   Exited (1) 9 seconds ago             agitated
+
+--> docker logs 6ee
+2025/01/07 17:36:54 error while reading the file "/csvserver/inputdata": open /csvserver/inputdata: no such file or directory

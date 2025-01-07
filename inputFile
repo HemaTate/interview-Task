@@ -1,0 +1,11 @@
+chmod +x gencsv.sh
+./gencsv.sh
+ to create-inputFile
+
+2, 978
+3, 294
+4, 483
+5, 682
+6, 709
+7, 919
+8, 617

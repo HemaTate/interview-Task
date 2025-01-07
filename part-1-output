@@ -1,0 +1,16 @@
+Output of part first:
+on local machine: curl http://localhost:9393
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CSV Server</title>
+  <style>
+  th, td {
+    padding: 5px;
+  }
+  </style>
+</head>
+<body>
+<!-- Y3N2c2VydmVyIGdlbmVyYXRlZCBhdDogMTczNjI2NTY5MA== -->
+<h3 style="border:3px solid Orange">Welcome to the CSV Server</h3><table><tr><th>Index</th><th>Value</th></tr><tr><td>2</td><td> 978</td></tr><tr><td>3</td><td> 294</td></tr><tr><td>4</td><td> 483</td></tr><tr><td>5</td><td> 682</td></tr><tr><td>6</td><td> 709</td></tr><tr><td>7</td><td> 919</td></tr><tr><td>8</td><td> 617</td></tr></table></body></html>
