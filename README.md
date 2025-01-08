@@ -155,4 +155,78 @@ then i got port which is assigned to the container 9393
   2. Use an environment variable file named `csvserver.env` in `docker-compose.yaml` to pass environment variables used in part I.
   3. One should be able to run the application with `docker-compose up`.
 
+## Solution of part-II
+Here is the solution to create a docker-compose.yaml file for the setup in Part I. We'll also create an environment variable file (csvserver.env) to pass the required environment variables.
+
+##  $\color{blue}{Delete Existing Containers}$
+````
+docker ps -a  
+docker stop [container_id]  
+docker rm [container_id]    
+````
+````
+docker rm -f $(docker ps -aq) #if we want to delete all container in one go
+````
+##  $\color{blue}{Create Environment File}$
+````
+vim touch csvserver.env
+````
+
+Add the following environment variables to the file:
+
+````
+CSVSERVER_BORDER=Orange
+````
+
+Create docker-compose.yaml
+
+````
+touch docker-compose.yaml
+````
+
+Add the following content to the file:
+
+````
+version: "3.9"
+
+services:
+  csvserver:
+    image: infracloudio/csvserver:latest
+    container_name: csvserver
+    ports:
+      - "9393:9300" # Map port 9300 inside the container to 9393 on the host
+    environment:
+      - CSVSERVER_BORDER=${CSVSERVER_BORDER} # Load environment variables from file
+    env_file:
+      - csvserver.env
+    volumes:
+      - ./inputFile:/csvserver/inputdata # Mount inputFile into the container
+````
+
+To Run the Application create or Generate inputFile:
+Run the gencsv.sh script to create the inputFile:
+
+````
+./gencsv.sh 2 8
+````
+Start the application using Docker Compose:
+````
+docker-compose up
+docker-compose up -d #to run in background
+````
+Verify the setup:
+
+Open your browser and visit:
+````
+http://localhost:9393
+````
+Ensure the CSV data and orange border are displayed correctly.
+
+
+
+
+
+
+
+
 
