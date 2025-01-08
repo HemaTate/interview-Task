@@ -1,0 +1,10 @@
+global:
+  scrape_interval: 5s  # How often to scrape targets by default.
+
+scrape_configs:
+  - job_name: "csvserver"
+    static_configs:
+      - targets: 
+          - "18.220.46.75:9300"  # The application container's name and port
+
+
