@@ -1,0 +1,15 @@
+version: "3.9"
+
+services:
+  csvserver:
+    image: infracloudio/csvserver:latest
+    container_name: csvserver
+    ports:
+      - "9393:9300" # Map port 9300 inside the container to 9393 on the host
+    environment:
+      - CSVSERVER_BORDER=${CSVSERVER_BORDER} # Load environment variables from file
+    env_file:
+      - csvserver.env
+    volumes:
+      - ./inputFile:/csvserver/inputdata # Mount inputFile into the container
+
