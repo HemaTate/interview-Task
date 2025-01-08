@@ -149,3 +149,10 @@ then i got port which is assigned to the container 9393
 
 ![image](https://github.com/HemaTate/interview-Task/blob/master/Screenshot%20(436).png)
 
+## Part II
+  0. Delete any containers running from the last part.
+  1. Create a `docker-compose.yaml` file for the setup from part I.
+  2. Use an environment variable file named `csvserver.env` in `docker-compose.yaml` to pass environment variables used in part I.
+  3. One should be able to run the application with `docker-compose up`.
+
+
