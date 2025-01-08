@@ -61,35 +61,47 @@ The application should be accessible at http://localhost:9393, it should have th
     5  systemctl start docker.s 
     6  systemctl start docker
     7  systemctl enable docker 
-    ''''
+
+````
     8   curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-    ''''
-    ''''
+````
+````
     9   chmod +x /usr/local/bin/docker-compose
    10  docker-compose --version
-''''
+````
 ##  $\color{blue} \textbf { pull the images as instruction}$
    11  docker pull infracloudio/csvserver:latest
    12  docker pull prom/prometheus:v2.45.2
    13  docker images
 
 ##  $\color{blue} \textbf { run or create the container}$ 
+````
    14  docker run -d --name csvserver  infracloudio/csvserver
    15  docker ps
    16  docker ps -a
+````
 ##  $\color{blue} \textbf { i have found error my container is not runned bacuse i dont have inputFile}$ 
-   17  docker logs csvserver #checking logs to find error
+  #checking logs to find error
+   ````
+17  docker logs csvserver
+  ````
+
 ##  $\color{blue} \textbf { cloned the repository }$
+ ````
    18  yum install git -y
    19  git clone https://github.com/infracloudio/csvserver.git
+ ````
 ##  $\color{blue} \textbf { checked the directory or files are clomed or not}$
+ ````
    20  ls
    21  cd csvserver/
    22  ls
    23  cd solution/
    24  ls
    25  cd ..
+ ````
 ##  $\color{blue} \textbf { completed task to create a sh file to create file which is "inputFile}$
+ ````
    26  vim gencsv.sh
    27  ls
    28  ./gencsv.sh
@@ -98,29 +110,42 @@ The application should be accessible at http://localhost:9393, it should have th
    31  ./gencsv.sh
    32  ./gencsv.sh 2 8
    33  ls
+ ````
 ##  $\color{blue} \textbf { by using shellfile here is automatically created inputFile }$
-   34  cat inputFile 
+  
+    ````
+    34  cat inputFile 
+     ````
    
 ##  $\color{blue} \textbf { then i have created once agian container with mounting the file correctly}$
-   55  docker run -d --name csvserver -v "$(pwd)/inputFile:/csvserver/inputdata" infracloudio/csvserver:latest
+  
+    ````
+    55  docker run -d --name csvserver -v "$(pwd)/inputFile:/csvserver/inputdata" infracloudio/csvserver:latest
    56  docker ps
    57  docker exec -it csvserver /bin/bash
+    ````
 
 ##  $\color{blue} \textbf {To Find the listening port Inside the container, run}$
-''''
-       netstat -tuln | grep LISTEN then i got port which is assigned to the container 9393
-''''
-''''
+ ````
+       netstat -tuln | grep LISTEN
+````
+then i got port which is assigned to the container 9393
+ 
+````
    62  docker ps
    58  docker rm 6f
    59  docker stop 6f
    60  docker rm 6f
-   ''''
+  ````
 ##  $\color{blue} \textbf {created the container where i use port 9393}$
-
+````
    61  docker run -d --name csvserver -v "$(pwd)/inputFile:/csvserver/inputdata" -p 9393:9300 -e CSVSERVER_BORDER=Orange infracloudio/csvserver:latest
-
+````
+````
    62  docker ps
    63  curl http://localhost:9393
+````
 ##  $\color{blue} \textbf {I GOT OUTPUT WHICH IS The application should be accessible at http://localhost:9393, it should have the 7 entries from inputFile and the welcome note should have an orange color border.}$ 
+
+![image]()
 
