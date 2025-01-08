@@ -61,10 +61,13 @@ The application should be accessible at http://localhost:9393, it should have th
     5  systemctl start docker.s 
     6  systemctl start docker
     7  systemctl enable docker 
+    ''''
     8   curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    ''''
+    ''''
     9   chmod +x /usr/local/bin/docker-compose
    10  docker-compose --version
-
+''''
 ##  $\color{blue} \textbf { pull the images as instruction}$
    11  docker pull infracloudio/csvserver:latest
    12  docker pull prom/prometheus:v2.45.2
@@ -104,11 +107,15 @@ The application should be accessible at http://localhost:9393, it should have th
    57  docker exec -it csvserver /bin/bash
 
 ##  $\color{blue} \textbf {To Find the listening port Inside the container, run}$
+''''
        netstat -tuln | grep LISTEN then i got port which is assigned to the container 9393
+''''
+''''
    62  docker ps
    58  docker rm 6f
    59  docker stop 6f
    60  docker rm 6f
+   ''''
 ##  $\color{blue} \textbf {created the container where i use port 9393}$
 
    61  docker run -d --name csvserver -v "$(pwd)/inputFile:/csvserver/inputdata" -p 9393:9300 -e CSVSERVER_BORDER=Orange infracloudio/csvserver:latest
