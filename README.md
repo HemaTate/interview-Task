@@ -294,6 +294,8 @@ Adjust the time range (e.g., Last 5 minutes) and confirm that the graph displays
 
 This means Prometheus successfully scraped the metric csvserver_records from the csvserver application. 
 
+## Output
+![image](https://github.com/HemaTate/interview-Task/blob/master/Screenshot%20(441).png)
 
 
 
