@@ -221,6 +221,79 @@ Open your browser and visit:
 http://localhost:9393
 ````
 Ensure the CSV data and orange border are displayed correctly.
+## Output
+![image](https://github.com/HemaTate/interview-Task/blob/master/Screenshot%20(436).png)
+
+## part III
+Delete any containers running from the last part.
+Add Prometheus container (prom/prometheus:v2.45.2) to the docker-compose.yaml form part II.
+Configure Prometheus to collect data from our application at <application>:<port>/metrics endpoint. (Where the <port> is the port from I.5)
+Make sure that Prometheus is accessible at http://localhost:9090 on the host.
+Type csvserver_records in the query box of Prometheus. Click on Execute and then switch to the Graph tab.
+The Prometheus instance should be accessible at http://localhost:9090, and it should show a straight line graph with value 7 (consider shrinking the time range to 5m)
+## solution :
+## Step 1: Delete Any Running Containers
+Stop and remove all containers from the previous part I and part II
+````
+docker-compose down
+````
+ ## Step 2: Add Prometheus to docker-compose.yaml
+Modify the docker-compose.yaml file to include a Prometheus service
+````
+services:
+  csvserver:
+    image: infracloudio/csvserver:latest
+    container_name: csvserver
+    ports:
+      - "9393:9300"
+    env_file:
+      - csvserver.env
+    volumes:
+      - ./inputFile:/csvserver/inputdata
+
+  prometheus:
+    image: prom/prometheus:v2.45.2
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+````
+## Step 3: Create Prometheus Configuration File
+Prometheus needs a configuration file to know where to scrape metrics from. Create a prometheus.yml file in the same directory as your docker-compose.yaml with the following content:
+````
+global:
+  scrape_interval: 5s  # How often Prometheus scrapes metrics by default.
+
+scrape_configs:
+  - job_name: "csvserver"
+    static_configs:
+      - targets:
+          - "csvserver:9300"  # Replace 9300 with the port on which your application exposes metrics.
+````
+## Step 4: Start the Docker Compose Setup
+Bring up the entire setup, including csvserver and prometheus:
+````
+docker-compose up --build
+````
+This command will:
+Start the csvserver container and expose its metrics at /metrics.
+Start the Prometheus container and configure it to scrape metrics from csvserver.
+## Step 5: Verify Prometheus
+Open your browser and navigate to:
+````
+http://localhost:9090
+````
+In the Query box at the top, type:
+````
+csvserver_records
+````
+Click Execute, and switch to the Graph tab.
+
+Adjust the time range (e.g., Last 5 minutes) and confirm that the graph displays a straight line at 7.
+
+This means Prometheus successfully scraped the metric csvserver_records from the csvserver application. 
+
 
 
 
